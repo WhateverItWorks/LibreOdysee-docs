@@ -1,0 +1,16 @@
+site_name: LibreOdysee Docs
+repo_url: https://github.com/WhateverItWorks/LibreOdysee
+repo_name: WhateverItWorks/LibreOdysee
+theme:
+  logo: assets/LibreOdysee.svg
+  favicon: assets/LibreOdysee.svg
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - navigation.indexes
+  palette:
+    primary: white
+    accent: blue
+  font: false
