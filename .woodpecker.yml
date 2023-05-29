@@ -1,0 +1,24 @@
+pipeline:
+  build:
+    image: squidfunk/mkdocs-material
+    commands:
+      - mkdocs build
+  deploy:
+    image: codeberg.org/video-prize-ranch/git-openssh-alpine:latest
+    commands:
+      - mkdir -p ~/.ssh
+      - echo "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+      - chmod 600 ~/.ssh/id_ed25519
+      - eval "$(ssh-agent -s)"
+      - ssh-add ~/.ssh/id_ed25519
+      - ssh-keyscan -H 'codeberg.org' >> ~/.ssh/known_hosts
+      - git config --global user.email "23rnofonsaf@wfonpwef.q1rnog"
+      - git config --global user.name "Codeberg CI"
+      - git clone --depth 1 git@codeberg.org:librarian/pages.git
+      - cd pages
+      - rm -rf docs
+      - mv ../site docs
+      - git add .
+      - git commit -m "Update site"
+      - git push
+    secrets: [ssh_key]
